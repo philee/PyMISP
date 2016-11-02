@@ -275,6 +275,14 @@ class PyMISP(object):
             response = session.post(url, data=json.dumps(event))
         return self._check_response(response)
 
+    def insert_event_thread(self, event_id, thread):
+        session = self.__prepare_session()
+        #URI location for adding 'thread' posts to event
+        url = urljoin(self.root_url, 'posts/add/event/{}'.format(event_id))
+        to_post = {'Post':{u'message':thread}}
+        response = session.post(url, data=json.dumps(to_post))
+        #Leaving return empty for now- everytime I submit a thread update to an event, will send a 500 server error
+        
     def delete_event(self, event_id):
         """
             Delete an event
