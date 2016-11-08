@@ -356,6 +356,12 @@ class PyMISP(object):
         response = session.post(urljoin(self.root_url, 'events/removeTag'), data=json.dumps(to_post))
         return self._check_response(response)
 
+    def insert_thread(self, event_id, thread):
+        session = self.__prepare_session()
+        url = urljoin(self.root_url, 'posts/add/event/{}'.format(event_id))
+        to_post = {'Post':{u'message':thread}}
+        session.post(url, data=json.dumps(to_post))
+        
     # ##### File attributes #####
 
     def _send_attributes(self, event, attributes, proposal=False):
